@@ -43,3 +43,4 @@ jobs:
             git add models.json
             git commit -m "Update model availability"
             git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main
+          fi
