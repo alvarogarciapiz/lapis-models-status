@@ -18,14 +18,20 @@ jobs:
       - name: Check and update availability
         run: |
           jq 'map(.available="true")' models.json > updatedModels.json
+          unavailable_urls=""
           for url in $(jq -r '.[].url' models.json); do
             if ! curl --head --silent --fail "$url" > /dev/null; then
               modelId=$(jq -r ".[] | select(.url==\"$url\").modelId" models.json)
               index=$(jq -r "to_entries | map(select(.value.modelId==\"$modelId\")) | .[0].key" updatedModels.json)
               [ -n "$index" ] && jq ".[$index].available=\"false\"" updatedModels.json > temp.json && mv temp.json updatedModels.json
+              unavailable_urls="$unavailable_urls\n$url"
             fi
           done
           mv updatedModels.json models.json
+
+          if [ -n "$unavailable_urls" ]; then
+            curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} -d text="The following URLs are unavailable: $unavailable_urls"
+          fi
 
       - name: Commit changes if any
         env:
@@ -36,5 +42,4 @@ jobs:
             git config user.email "actions@github.com"
             git add models.json
             git commit -m "Update model availability"
-            git push https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git HEAD:main
-          fi
+            git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main
