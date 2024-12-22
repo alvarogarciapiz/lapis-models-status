@@ -32,7 +32,7 @@
     "available": "true"
   },
   {
-    "modelId": "Sailor2-1B-Chat-GGUF",
+    "modelId": "Sailor2-1B-Chat-GGUF-Q2",
     "name": "Sailor 2 1B Chat Q2",
     "url": "https://huggingface.co/MaziyarPanahi/Sailor2-1B-Chat-GGUF/resolve/main/Sailor2-1B-Chat.Q2_K.gguf?download=true",
     "sizeMB": 603,
@@ -40,7 +40,7 @@
     "available": "true"
   },
   {
-    "modelId": "Sailor2-1B-Chat-GGUF",
+    "modelId": "Sailor2-1B-Chat-GGUF-Q8",
     "name": "Sailor 2 1B Chat Q8",
     "url": "https://huggingface.co/MaziyarPanahi/Sailor2-1B-Chat-GGUF/resolve/main/Sailor2-1B-Chat.Q8_0.gguf?download=true",
     "sizeMB": 1060,
