@@ -1,0 +1,38 @@
+name: "Model Availability Check"
+
+on:
+  schedule:
+    - cron: '0 */2 * * *'
+  workflow_dispatch:
+
+jobs:
+  check-availability:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Check and update availability
+        run: |
+          jq 'map(.available="true")' models.json > updatedModels.json
+          for url in $(jq -r '.[].url' models.json); do
+            if ! curl --head --silent --fail "$url" > /dev/null; then
+              modelId=$(jq -r ".[] | select(.url==\"$url\").modelId" models.json)
+              index=$(jq -r "to_entries | map(select(.value.modelId==\"$modelId\")) | .[0].key" updatedModels.json)
+              [ -n "$index" ] && jq ".[$index].available=\"false\"" updatedModels.json > temp.json && mv temp.json updatedModels.json
+            fi
+          done
+          mv updatedModels.json models.json
+
+      - name: Commit changes if any
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "github-actions"
+            git config user.email "actions@github.com"
+            git add models.json
+            git commit -m "Update model availability"
+            git push
+          fi
