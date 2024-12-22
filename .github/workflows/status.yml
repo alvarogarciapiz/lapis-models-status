@@ -28,11 +28,13 @@ jobs:
           mv updatedModels.json models.json
 
       - name: Commit changes if any
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           if [ -n "$(git status --porcelain)" ]; then
             git config user.name "github-actions"
             git config user.email "actions@github.com"
             git add models.json
             git commit -m "Update model availability"
-            git push
+            git push https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git HEAD:main
           fi
