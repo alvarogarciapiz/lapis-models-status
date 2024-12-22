@@ -30,7 +30,7 @@ jobs:
           mv updatedModels.json models.json
 
           if [ -n "$unavailable_urls" ]; then
-            curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} -d text="🔴 The following URLs are unavailable:\n$unavailable_urls"
+            curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} -d text="🔴 The following URLs are unavailable:$unavailable_urls"
           fi
 
       - name: Commit changes if any
