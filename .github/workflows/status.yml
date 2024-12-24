@@ -17,37 +17,50 @@ jobs:
 
       - name: Check and update availability
         run: |
+          # Initialize variables
+          total_models=$(jq length models.json)
+          unavailable_count=0
+          start_time=$(date +"%Y-%m-%d %H:%M:%S UTC")
+          
+          # Reset availability
           jq 'map(.available="true")' models.json > updatedModels.json
           unavailable_urls=""
+          
           for url in $(jq -r '.[].url' models.json); do
             if ! curl --head --silent --fail "$url" > /dev/null; then
               modelId=$(jq -r ".[] | select(.url==\"$url\").modelId" models.json)
               index=$(jq -r "to_entries | map(select(.value.modelId==\"$modelId\")) | .[0].key" updatedModels.json)
               [ -n "$index" ] && jq ".[$index].available=\"false\"" updatedModels.json > temp.json && mv temp.json updatedModels.json
               unavailable_urls="$unavailable_urls\n$url"
+              ((unavailable_count++))
             fi
           done
           mv updatedModels.json models.json
-
-          # Create summary
-          echo "### Model Availability Status 🔍" >> $GITHUB_STEP_SUMMARY
-          echo "**Time**: $(date)" >> $GITHUB_STEP_SUMMARY
-          echo "**Total Models**: $total_models" >> $GITHUB_STEP_SUMMARY
-          echo "**Available**: $((total_models-unavailable_count))" >> $GITHUB_STEP_SUMMARY
-          echo "**Unavailable**: $unavailable_count" >> $GITHUB_STEP_SUMMARY
           
-          if [ $unavailable_count -gt 0 ]; then
-            echo "### ⚠️ Unavailable Models" >> $GITHUB_STEP_SUMMARY
-            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-            echo -e "$unavailable_urls" >> $GITHUB_STEP_SUMMARY
-            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-          else
-            echo "### ✅ All Models Available" >> $GITHUB_STEP_SUMMARY
-          fi
-
-          if [ -n "$unavailable_urls" ]; then
-            curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} -d text="🔴 The following URLs are unavailable:$unavailable_urls"
-          fi
+          # Calculate percentages
+          available_count=$((total_models-unavailable_count))
+          availability_percentage=$(awk "BEGIN {print ($available_count/$total_models)*100}")
+          
+          # Create enhanced summary
+          {
+            echo "# 🔄 Model Availability Report"
+            echo
+            echo "### 📊 Statistics"
+            echo "- **Check Time**: $start_time"
+            echo "- **Total Models**: $total_models"
+            echo "- **Available**: $available_count ($(printf "%.1f" $availability_percentage)%)"
+            echo "- **Unavailable**: $unavailable_count"
+            echo
+            if [ $unavailable_count -gt 0 ]; then
+              echo "### ⚠️ Unavailable Models"
+              echo "\`\`\`"
+              echo -e "$unavailable_urls"
+              echo "\`\`\`"
+            else
+              echo "### ✅ All Models Available"
+              echo "All model endpoints are responding correctly."
+            fi
+          } >> $GITHUB_STEP_SUMMARY
 
       - name: Commit changes if any
         env:
