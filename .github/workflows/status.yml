@@ -29,6 +29,22 @@ jobs:
           done
           mv updatedModels.json models.json
 
+          # Create summary
+          echo "### Model Availability Status 🔍" >> $GITHUB_STEP_SUMMARY
+          echo "**Time**: $(date)" >> $GITHUB_STEP_SUMMARY
+          echo "**Total Models**: $total_models" >> $GITHUB_STEP_SUMMARY
+          echo "**Available**: $((total_models-unavailable_count))" >> $GITHUB_STEP_SUMMARY
+          echo "**Unavailable**: $unavailable_count" >> $GITHUB_STEP_SUMMARY
+          
+          if [ $unavailable_count -gt 0 ]; then
+            echo "### ⚠️ Unavailable Models" >> $GITHUB_STEP_SUMMARY
+            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+            echo -e "$unavailable_urls" >> $GITHUB_STEP_SUMMARY
+            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "### ✅ All Models Available" >> $GITHUB_STEP_SUMMARY
+          fi
+
           if [ -n "$unavailable_urls" ]; then
             curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} -d text="🔴 The following URLs are unavailable:$unavailable_urls"
           fi
