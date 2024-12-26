@@ -1,42 +1,50 @@
 [
-  {
-    "modelId": "tinyllama-1.1b-chat-v1.0.Q6_K",
-    "name": "TinyLlama 1.1B Q6",
-    "url": "https://huggingface.co/newsletter/TinyLlama-1.1B-Chat-v1.0-Q6_K-GGUF/resolve/main/tinyllama-1.1b-chat-v1.0.Q6_K.gguf?download=true",
-    "sizeMB": 903,
-    "architecture": "Llama",
-    "available": "true"
-  },
-  {
-    "modelId": "Llama-3.2-3B-Instruct-IQ3_M",
-    "name": "Llama 3.2 3B Instruct",
-    "url": "https://huggingface.co/bartowski/Llama-3.2-3B-Instruct-GGUF/resolve/main/Llama-3.2-3B-Instruct-IQ3_M.gguf?download=true",
-    "sizeMB": 1600,
-    "architecture": "Llama",
-    "available": "true"
-  },
-  {
-    "modelId": "Phi-3.5-mini-instruct-IQ2_M",
-    "name": "Phi 3.5 mini instruct",
-    "url": "https://huggingface.co/bartowski/Phi-3.5-mini-instruct-GGUF/resolve/main/Phi-3.5-mini-instruct-IQ2_M.gguf?download=true",
-    "sizeMB": 1320,
-    "architecture": "Phi",
-    "available": "true"
-  },
-  {
-    "modelId": "Sailor2-1B-Chat-GGUF",
-    "name": "Sailor 2 1B Chat Q2",
-    "url": "https://huggingface.co/MaziyarPanahi/Sailor2-1B-Chat-GGUF/resolve/main/Sailor2-1B-Chat.Q2_K.gguf?download=true",
-    "sizeMB": 603,
-    "architecture": "Sailor",
-    "available": "true"
-  },
-  {
-    "modelId": "llama3.2-1b-Uncensored-GGUF",
-    "name": "Llama 3.2 1B Uncensored Q5",
-    "url": "https://huggingface.co/tensorblock/llama3.2-1b-Uncensored-GGUF/resolve/main/llama3.2-1b-Uncensored-Q5_K_S.gguf?download=true",
-    "sizeMB": 893,
-    "architecture": "Llama",
-    "available": "true"
-  }
+    {
+        "modelId": "Phi-3.5-Mini-ChatML.Q4_K_M",
+        "name": "Phi 3.5 Mini",
+        "url": "https://huggingface.co/mradermacher/Phi-3.5-Mini-ChatML-GGUF/resolve/main/Phi-3.5-Mini-ChatML.Q4_K_M.gguf?download=true",
+        "sizeMB": 2393,
+        "architecture": "Phi",
+        "available": "true"
+    },
+    {
+        "modelId": "Qwen2.5_1.5B_Med_chatvector-GGUF",
+        "name": "Qwen2.5 1.5B",
+        "url": "https://huggingface.co/mradermacher/Qwen2.5_1.5B_Med_chatvector-GGUF/resoolve/main/Qwen2.5_1.5B_Med_chatvector.Q4_K_M.gguf?download=true",
+        "sizeMB": 986,
+        "architecture": "Qwen",
+        "available": "true"
+    },
+    {
+        "modelId": "gemma-2-2b-it-GGUF",
+        "name": "Gemma2 2B it",
+        "url": "https://huggingface.co/bartowski/gemma-2-2b-it-GGUF/resolve/main/gemma-2-2b-it-Q5_K_S.gguf?download=true",
+        "sizeMB": 1880,
+        "architecture": "Gemma",
+        "available": "true"
+    },
+    {
+        "modelId": "Phi-3.5-mini-instruct-IQ2_M",
+        "name": "Phi3.5 mini instruct",
+        "url": "https://huggingface.co/bartowski/Phi-3.5-mini-instruct-GGUF/resolve/main/Phi-3.5-mini-instruct-IQ2_M.gguf?download=true",
+        "sizeMB": 2320,
+        "architecture": "Phi",
+        "available": "true"
+    },
+    {
+        "modelId": "Hermes-3-Llama-3.2-3B-GGUF",
+        "name": "Hermes3 Llama 3.2 3B",
+        "url": "https://huggingface.co/NousResearch/Hermes-3-Llama-3.2-3B-GGUF/resolve/main/Hermes-3-Llama-3.2-3B.Q5_K_M.gguf?download=true",
+        "sizeMB": 2320,
+        "architecture": "Llama",
+        "available": "true"
+    },
+    {
+        "modelId": "tinyllama-1.1b-chat-v1.0-q8_0",
+        "name": "TinyLlama 1.1B Q8",
+        "url": "https://huggingface.co/NightShade9x9/TinyLlama-1.1B-Chat-v1.0-Q8_0-GGUF/resolve/main/tinyllama-1.1b-chat-v1.0-q8_0.gguf?download=true",
+        "sizeMB": 1170,
+        "architecture": "Llama",
+        "available": "true"
+    }
 ]
