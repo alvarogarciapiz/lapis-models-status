@@ -10,7 +10,7 @@
   {
     "modelId": "Qwen2.5_1.5B_Med_chatvector-GGUF",
     "name": "Qwen2.5 1.5B",
-    "url": "https://huggingface.co/mradermacher/Qwen2.5_1.5B_Med_chatvector-GGUF/resoolve/main/Qwen2.5_1.5B_Med_chatvector.Q4_K_M.gguf?download=true",
+    "url": "https://huggingface.co/mradermacher/Qwen2.5_1.5B_Med_chatvector-GGUF/resolve/main/Qwen2.5_1.5B_Med_chatvector.Q4_K_M.gguf?download=true",
     "sizeMB": 986,
     "architecture": "Qwen",
     "available": "false"
