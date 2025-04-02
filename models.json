@@ -13,7 +13,7 @@
     "url": "https://huggingface.co/NightShade9x9/TinyLlama-1.1B-Chat-v1.0-Q8_0-GGUF/resolve/main/tinyllama-1.1b-chat-v1.0-q8_0.gguf?download=true",
     "sizeMB": 1170,
     "architecture": "Llama",
-    "available": "false"
+    "available": "true"
   },
   {
     "modelId": "h2o-danube2-1.8b-chat-Q4_K_M",
@@ -21,6 +21,6 @@
     "url": "https://huggingface.co/h2oai/h2o-danube2-1.8b-chat-GGUF/resolve/main/h2o-danube2-1.8b-chat-Q4_K_M.gguf?download=true",
     "sizeMB": 1110,
     "architecture": "Danube",
-    "available": "false"
+    "available": "true"
   }
 ]
